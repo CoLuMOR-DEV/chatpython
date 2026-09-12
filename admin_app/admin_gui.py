@@ -178,7 +178,8 @@ class AdminGUI:
             try:
                 self.sio.connect(url, namespaces=["/admin"], transports=["websocket", "polling"])
             except Exception as e:
-                self.root.after(0, lambda: self.conn_status_var.set(f"Connection failed: {e}"))
+                error_msg = f"Connection failed: {e}"
+                self.root.after(0, lambda: self.conn_status_var.set(error_msg))
 
         threading.Thread(target=do_connect, daemon=True).start()
 
